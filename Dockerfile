@@ -10,6 +10,7 @@ FROM $BASE_IMAGE:$BASE_VERSION AS local
 # copy newest version of local files
 WORKDIR /root/licheepi-nano
 COPY board/ board/
+RUN chmod +x /root/licheepi-nano/board/licheepi_nano/post-image.sh
 COPY configs/ configs/
 COPY \
     Config.in \
@@ -20,7 +21,9 @@ COPY \
 # reset Buildroot config and trigger Linux kernel rebuild
 WORKDIR /root/buildroot
 RUN BR2_EXTERNAL=/root/licheepi-nano make licheepi_nano_defconfig
-RUN cd output/build/uboot-v2021.01-f1c100s-4/ && rm .stamp_built .stamp_*installed
+# RUN cd output/build/uboot-v2021.01-f1c100s-4/ && rm .stamp_built .stamp_*installed
+RUN rm -rf output/build/uboot-v2021.01-f1c100s-4/
+RUN rm -f output/build/.uboot-* output/build/uboot-*
 RUN cd output/build/host-uboot-tools-2021.07/ && rm .stamp_built .stamp_*installed
 RUN cd output/build/linux-custom/ && rm .stamp_dotconfig .stamp_configured .stamp_built .stamp_*installed
 RUN cd output/build/linux-firmware-20221214/ && rm .stamp_built .stamp_*installed

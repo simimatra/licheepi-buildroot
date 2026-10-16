@@ -74,7 +74,7 @@ BR2_LINUX_KERNEL_VERSION="v5.11-nano-4"
 
 BR2_LINUX_KERNEL_USE_CUSTOM_CONFIG=y
 BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE="$(BR2_EXTERNAL_LICHEEPI_NANO_PATH)/board/licheepi_nano/licheepi_nano_linux_defconfig"
-
+BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_LICHEEPI_NANO_PATH)/board/licheepi_nano/linux-nand.config"
 # original Lichee-Pi Linux fork provided defconfig
 # BR2_LINUX_KERNEL_DEFCONFIG="licheepi_nano"
 
@@ -100,8 +100,10 @@ BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_LICHEEPI_NANO_PATH)/board/licheepi_
 # U-Boot customized for the board
 #
 BR2_TARGET_UBOOT=y
-# @todo this BR2_TARGET_UBOOT_BUILD_SYSTEM_KCONFIG=y
-BR2_TARGET_UBOOT_BOARDNAME="licheepi_nano"
+BR2_TARGET_UBOOT_BUILD_SYSTEM_KCONFIG=y
+BR2_TARGET_UBOOT_BOARD_DEFCONFIG="licheepi_nano"
+BR2_TARGET_UBOOT_CUSTOM_DTS_PATH="$(BR2_EXTERNAL_LICHEEPI_NANO_PATH)/board/licheepi_nano/suniv-f1c100s-licheepi-nano.dts"
+BR2_TARGET_UBOOT_PATCH="$(BR2_EXTERNAL_LICHEEPI_NANO_PATH)/board/licheepi_nano/uboot-patches"
 BR2_TARGET_UBOOT_CUSTOM_GIT=y
 
 # @unframework U-Boot fork and tag
